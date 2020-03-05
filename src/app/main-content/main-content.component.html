@@ -1,0 +1,37 @@
+<mat-drawer-container id="j-sidenav-container" [hasBackdrop]="'true'">    
+
+    <!-- Sidenav side/push/over -->
+    <mat-drawer #drawer [mode]="'over'">
+        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+            <!-- Leaf node -->
+            <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                <button mat-icon-button disabled></button>
+                {{node.item}}
+            </mat-tree-node>
+
+            <!-- expandable node -->
+            <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                <button mat-icon-button [attr.aria-label]="'toggle ' + node.filename" (click)="loadChildren(node)"
+                    matTreeNodeToggle>
+                    <mat-icon class="mat-icon-rtl-mirror">
+                        {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                    </mat-icon>
+                </button>
+                {{node.item}}
+            </mat-tree-node>
+
+            <mat-tree-node *matTreeNodeDef="let node; when: isLoadMore">
+                <button mat-button (click)="loadMore(node.loadMoreParentItem)">
+                    Load more...
+                </button>
+            </mat-tree-node>
+        </mat-tree>
+        <app-asset-management></app-asset-management>
+    </mat-drawer>
+
+    
+    <!-- toggle button -->
+    <mat-drawer-content style="z-index: 10;">
+        <mat-icon id="j-btn-menu-open" (click)="drawer.toggle()">menu_open</mat-icon>
+    </mat-drawer-content>
+</mat-drawer-container>
