@@ -1,6 +1,6 @@
 # JIcs
 
-https://vercel.com/simuing
+https://simuing-ics.now.sh/
 
 
 # used
